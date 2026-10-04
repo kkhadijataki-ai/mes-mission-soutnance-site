@@ -14,6 +14,7 @@ def home():
     cursor.execute("SELECT * FROM employees")
     employees = cursor.fetchall()
 
+    cursor.close()
     connection.close()
 
     return render_template("index.html", employees=employees)
@@ -29,11 +30,12 @@ def ajouter():
     cursor = connection.cursor()
 
     cursor.execute(
-        "INSERT INTO employees (nom, knia, maham) VALUES (?, ?, ?)",
+        "INSERT INTO employees (nom, knia, maham) VALUES (%s, %s, %s)",
         (nom, knia, maham)
     )
 
     connection.commit()
+    cursor.close()
     connection.close()
 
     return redirect("/")
@@ -45,11 +47,12 @@ def supprimer(id):
     cursor = connection.cursor()
 
     cursor.execute(
-        "DELETE FROM employees WHERE id = ?",
+        "DELETE FROM employees WHERE id = %s",
         (id,)
     )
 
     connection.commit()
+    cursor.close()
     connection.close()
 
     return redirect("/")
@@ -63,6 +66,7 @@ def supprimer_tout():
     cursor.execute("DELETE FROM employees")
 
     connection.commit()
+    cursor.close()
     connection.close()
 
     return redirect("/")
