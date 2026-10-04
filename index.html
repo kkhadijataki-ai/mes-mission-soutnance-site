@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>soutnenance</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #ffe6f0;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #ff1493;
+        }
+
+        input {
+            padding: 12px;
+            margin: 7px;
+            width: 250px;
+            border: 1px solid #ffb6c1;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 25px;
+            margin: 5px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-size: 15px;
+        }
+
+        .ajouter {
+            background-color: #ff69b4;
+        }
+
+        .supprimerTout {
+            background-color: #e75480;
+        }
+
+        .personne {
+            background-color: white;
+            margin: 20px auto;
+            padding: 15px;
+            width: 350px;
+            border-radius: 12px;
+        }
+
+        .personne h3 {
+            color: #ff1493;
+        }
+
+        .supprimer {
+            background-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🎀  mes mission soutenance 🎀</h1>
+
+    <form action="/ajouter" method="POST">
+
+        <input name="nom" type="text" placeholder="Nom" required>
+        <br>
+
+        <input name="knia" type="text" placeholder="Knia" required>
+        <br>
+
+        <input name="maham" type="text" placeholder="Maham" required>
+        <br><br>
+
+        <button class="ajouter" type="submit">
+            Ajouter
+        </button>
+
+    </form>
+
+
+    <form action="/supprimer-tout" method="POST">
+
+        <button class="supprimerTout" type="submit">
+            Supprimer tout
+        </button>
+
+    </form>
+
+
+    {% for employee in employees %}
+
+    <div class="personne">
+
+        <h3>
+            {{ employee[1] }} {{ employee[2] }}
+        </h3>
+
+        <p>
+            📋 {{ employee[3] }}
+        </p>
+
+        <form action="/supprimer/{{ employee[0] }}" method="POST">
+
+            <button class="supprimer" type="submit">
+                Supprimer
+            </button>
+
+        </form>
+
+    </div>
+
+    {% endfor %}
+
+</body>
+
+</html>
