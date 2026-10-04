@@ -1,8 +1,9 @@
-import sqlite3
+import os
+import psycopg
 
 
 def get_connection():
-    return sqlite3.connect("employees.db")
+    return psycopg.connect(os.environ["DATABASE_URL"])
 
 
 def create_table():
@@ -11,7 +12,7 @@ def create_table():
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS employees (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             nom TEXT NOT NULL,
             knia TEXT NOT NULL,
             maham TEXT NOT NULL
@@ -19,4 +20,5 @@ def create_table():
     """)
 
     connection.commit()
+    cursor.close()
     connection.close()
